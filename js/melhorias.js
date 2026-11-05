@@ -7,5 +7,3 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
   draw({totals:{followers:22543,views90d:2884359},tiktok:{er:.03797}});side.prepend(s);
   fetch('dados/data.json').then(r=>r.json()).then(draw).catch(()=>{})}
 },400));
-(function(){const sw=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('img[src*="img/foto"]').forEach(i=>{const t=d?'img/foto-escuro2.jpg':'img/foto-claro2.jpg';if(!i.src.endsWith(t))i.src=d?'img/foto-escuro2.jpg':'img/foto-claro2.jpg'})};
-new MutationObserver(sw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});document.addEventListener('DOMContentLoaded',()=>new MutationObserver(m=>{if(m.some(x=>x.addedNodes.length))sw()}).observe(document.body,{childList:true,subtree:true}));document.addEventListener('DOMContentLoaded',sw)})();

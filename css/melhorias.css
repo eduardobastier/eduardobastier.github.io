@@ -32,3 +32,6 @@ body{background:var(--bg)!important;isolation:isolate}
 .nav{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;position:sticky}
 .nav::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);z-index:-1;background:color-mix(in srgb,var(--bg) 60%,transparent);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
 .mk-tabs{display:none!important}
+/* foto recortada (fundo transparente) + fundo pelo tema: troca sem piscar */
+img[src*="foto-recorte"]{background:radial-gradient(70% 70% at 22% 15%,rgba(251,217,5,.55),transparent 70%),radial-gradient(60% 60% at 85% 85%,rgba(247,184,53,.45),transparent 70%),#FAFAF9;object-fit:cover}
+:root[data-theme="dark"] img[src*="foto-recorte"]{background:radial-gradient(70% 70% at 22% 15%,rgba(251,217,5,.22),transparent 70%),radial-gradient(60% 60% at 85% 85%,rgba(247,184,53,.18),transparent 70%),#0E0E0F}
