@@ -6,9 +6,6 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
   const draw=d=>{s.innerHTML='<div><b>'+f(d.totals.followers)+'</b><small>'+(en?'followers':'seguidores')+'</small></div><div><b>'+f(d.totals.views90d)+'</b><small>'+(en?'views in 90 days':'views em 90 dias')+'</small></div><div><b>'+(d.tiktok.er*100).toLocaleString(L,{maximumFractionDigits:1})+'%</b><small>'+(en?'engagement':'engajamento')+'</small></div>'};
   draw({totals:{followers:22543,views90d:2884359},tiktok:{er:.03797}});side.prepend(s);
   fetch('dados/data.json').then(r=>r.json()).then(draw).catch(()=>{})}
- const mk=document.getElementById('view-mk');
- if(mk&&!mk.querySelector('.mk-tabs')){const t=document.createElement('nav');t.className='mk-tabs';
-  t.innerHTML='<a class="on">Números</a><a>Público</a><a>Conteúdos</a><a>Formatos</a><a>Contato</a>';mk.querySelector('.bar-top').after(t)}
 },400));
-(function(){const sw=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('img[src*="img/foto"]').forEach(i=>{const t=d?'img/foto-escuro.jpg':'img/foto-claro.jpg';if(!i.src.endsWith(t))i.src=d?'img/foto-escuro.jpg':'img/foto-claro.jpg'})};
+(function(){const sw=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('img[src*="img/foto"]').forEach(i=>{const t=d?'img/foto-escuro2.jpg':'img/foto-claro2.jpg';if(!i.src.endsWith(t))i.src=d?'img/foto-escuro2.jpg':'img/foto-claro2.jpg'})};
 new MutationObserver(sw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});document.addEventListener('DOMContentLoaded',()=>new MutationObserver(m=>{if(m.some(x=>x.addedNodes.length))sw()}).observe(document.body,{childList:true,subtree:true}));document.addEventListener('DOMContentLoaded',sw)})();
