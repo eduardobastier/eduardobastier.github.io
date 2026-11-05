@@ -35,3 +35,8 @@ body{background:var(--bg)!important;isolation:isolate}
 /* foto recortada (fundo transparente) + fundo pelo tema: troca sem piscar */
 img[src*="foto-recorte"]{background:radial-gradient(70% 70% at 22% 15%,rgba(251,217,5,.55),transparent 70%),radial-gradient(60% 60% at 85% 85%,rgba(247,184,53,.45),transparent 70%),#FAFAF9;object-fit:cover}
 :root[data-theme="dark"] img[src*="foto-recorte"]{background:radial-gradient(70% 70% at 22% 15%,rgba(251,217,5,.22),transparent 70%),radial-gradient(60% 60% at 85% 85%,rgba(247,184,53,.18),transparent 70%),#0E0E0F}
+/* tema escuro mais suave */
+:root[data-theme="dark"]{--bg:#131314;--surface:#1A1A1C;--ink:#D3D0CA;--muted:#8D8B87;--line:#29292C}
+:root[data-theme="dark"] .menu a[aria-current="page"],:root[data-theme="dark"] .seg-ctl button[aria-pressed="true"]{background:#2E2E32!important;color:#E4E1DB!important;box-shadow:inset 0 0 0 1px #3A3A3E}
+:root[data-theme="dark"] .btn-solid,:root[data-theme="dark"] .contact .btn:not(.ghost),:root[data-theme="dark"] .btn-pdf{background:#2E2E32!important;color:#E4E1DB!important;border:1px solid #3A3A3E!important}
+:root[data-theme="dark"] .big-n,:root[data-theme="dark"] .name{color:#DCD9D3!important}
