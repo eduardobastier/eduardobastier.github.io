@@ -33,7 +33,7 @@ updated:"Atualizado em 2 de novembro",pdf:"Baixar em PDF",pdfBusy:"Gerando PDF�
  price:"Valores e disponibilidade sob consulta.",brands:"Marcas e produtos que já apareceram no canal",
  cta:"Vamos fazer algo juntos?",ctaP:"Mande o produto, o objetivo e o prazo. Eu respondo com uma proposta.",
  copy:"Copiar e-mail",copied:"E-mail copiado",selected:"Selecionado",links:"Todos os links",
- foot:"Fontes: APIs oficiais do Instagram, TikTok e YouTube. Período: {from} a {to}. No Instagram e no TikTok, visualizações e engajamento somam o acumulado dos posts publicados no período; no YouTube, são as visualizações ocorridas nele. Mediana e média por vídeo no YouTube consideram o histórico do canal. 55+ agrupa 55–64 e 65+. Alcance do Instagram nos últimos 30 dias: {reach} contas. A página verifica novos dados a cada 5 minutos."},
+ foot:"Fontes: APIs oficiais do Instagram, TikTok e YouTube."},
 en:{locale:"en-US",
  why:"Why brands hire me",whyNote:"Based on data from the last 90 days.",
  w1t:"shares",w1:"On TikTok, in 90 days. My audience sends my tips to other people.",
@@ -67,7 +67,7 @@ updated:"Updated on November 2",pdf:"Download as PDF",pdfBusy:"Generating PDF…
  price:"Rates and availability on request.",brands:"Brands and products featured on the channel",
  cta:"Let's work together",ctaP:"Send me the product, the goal and the timeline. I'll reply with a proposal.",
  copy:"Copy email",copied:"Email copied",selected:"Selected",links:"All links",
- foot:"Sources: official Instagram, TikTok and YouTube APIs. Period: {from} to {to}. On Instagram and TikTok, views and engagement are the lifetime totals of posts published in the period; on YouTube, they are views that happened in it. YouTube median and average per video cover the channel's full history. 55+ groups 55–64 and 65+. Instagram reach in the last 30 days: {reach} accounts. The page checks for new data every 5 minutes."}
+ foot:"Sources: official Instagram, TikTok and YouTube APIs."}
 };
 var BR_TZ=/^America\/(Sao_Paulo|Rio_Branco|Manaus|Belem|Fortaleza|Recife|Bahia|Cuiaba|Campo_Grande|Porto_Velho|Boa_Vista|Noronha|Araguaina|Maceio|Santarem|Eirunepe)$/;
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
