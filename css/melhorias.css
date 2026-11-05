@@ -40,3 +40,19 @@ img[src*="foto-recorte"]{background:radial-gradient(70% 70% at 22% 15%,rgba(251,
 :root[data-theme="dark"] .menu a[aria-current="page"],:root[data-theme="dark"] .seg-ctl button[aria-pressed="true"]{background:#2E2E32!important;color:#E4E1DB!important;box-shadow:inset 0 0 0 1px #3A3A3E}
 :root[data-theme="dark"] .btn-solid,:root[data-theme="dark"] .contact .btn:not(.ghost),:root[data-theme="dark"] .btn-pdf{background:#2E2E32!important;color:#E4E1DB!important;border:1px solid #3A3A3E!important}
 :root[data-theme="dark"] .big-n,:root[data-theme="dark"] .name{color:#DCD9D3!important}
+/* menu hambúrguer no novo design */
+.mbtn{width:40px!important;height:40px!important;border-radius:10px!important;border:1px solid var(--line)!important;background:color-mix(in srgb,var(--surface) 70%,transparent)!important;backdrop-filter:blur(14px)}
+.mbtn span{background:var(--ink)!important;height:1.5px!important;left:12px!important;right:12px!important}
+.mbtn span:nth-child(1){top:15px!important}.mbtn span:nth-child(2){top:22px!important;left:16px!important}
+.mbtn[aria-expanded="true"]{background:color-mix(in srgb,var(--surface) 70%,transparent)!important;border-color:var(--line)!important}
+.mbtn[aria-expanded="true"] span{background:var(--ink)!important;top:18.5px!important;left:12px!important}
+.mpop{background:color-mix(in srgb,var(--surface) 82%,transparent)!important;backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--line)!important;border-radius:14px!important;box-shadow:0 16px 40px -12px rgba(0,0,0,.18)!important}
+.mpop::before{display:none!important}
+.mp-item{border-radius:9px!important;font-size:14px!important;font-family:var(--f-body)!important}
+.mp-item:hover,.mp-item:focus-visible{background:color-mix(in srgb,var(--ink) 6%,transparent)!important}
+.mp-item[aria-current="page"]{background:var(--ink)!important;color:var(--bg)!important;font-weight:500!important}
+.mp-item[aria-current="page"] svg{stroke:var(--bg)!important}
+:root[data-theme="dark"] .mp-item[aria-current="page"]{background:#2E2E32!important;color:#E4E1DB!important;box-shadow:inset 0 0 0 1px #3A3A3E}
+:root[data-theme="dark"] .mp-item[aria-current="page"] svg{stroke:#E4E1DB!important}
+.mp-cap{font-family:var(--f-body)!important;text-transform:none!important;letter-spacing:0!important;font-size:12px!important;font-weight:600!important;color:var(--ink)!important}
+.mp-item i{font-family:var(--f-body)!important}
