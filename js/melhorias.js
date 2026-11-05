@@ -10,5 +10,5 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  if(mk&&!mk.querySelector('.mk-tabs')){const t=document.createElement('nav');t.className='mk-tabs';
   t.innerHTML='<a class="on">Números</a><a>Público</a><a>Conteúdos</a><a>Formatos</a><a>Contato</a>';mk.querySelector('.bar-top').after(t)}
 },400));
-(function(){const sw=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('img[src*="img/foto"]').forEach(i=>{i.src=d?'img/foto-escuro.jpg':'img/foto.jpg'})};
-new MutationObserver(sw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});document.addEventListener('DOMContentLoaded',sw)})();
+(function(){const sw=()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('img[src*="img/foto"]').forEach(i=>{const t=d?'img/foto-escuro.jpg':'img/foto-claro.jpg';if(!i.src.endsWith(t))i.src=d?'img/foto-escuro.jpg':'img/foto-claro.jpg'})};
+new MutationObserver(sw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});document.addEventListener('DOMContentLoaded',()=>new MutationObserver(m=>{if(m.some(x=>x.addedNodes.length))sw()}).observe(document.body,{childList:true,subtree:true}));document.addEventListener('DOMContentLoaded',sw)})();
