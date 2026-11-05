@@ -272,12 +272,24 @@ function loadPdfLib(){
     loadScript("js/foto-pdf.js",function(){return !!window.EB_FOTO_PDF;})
   ]);
 }
+// html2canvas não entende color(srgb …) gerado por color-mix: converte para rgba no clone
+function fixColors(doc){
+  var re=/color\(srgb ([\d.e-]+) ([\d.e-]+) ([\d.e-]+)(?: \/ ([\d.e-]+))?\)/g;
+  var props=["color","background-color","background-image","border-top-color","border-right-color","border-bottom-color","border-left-color","outline-color","box-shadow","text-decoration-color","fill","stroke"];
+  var w=doc.defaultView;
+  doc.querySelectorAll("*").forEach(function(el){
+    var cs=w.getComputedStyle(el);
+    props.forEach(function(pr){var v=cs.getPropertyValue(pr);
+      if(v&&v.indexOf("color(")>-1)el.style.setProperty(pr,v.replace(re,function(m,r,g,b,a){
+        return "rgba("+Math.round(r*255)+","+Math.round(g*255)+","+Math.round(b*255)+","+(a===undefined?1:a)+")";}),"important");});
+  });
+}
 function pdfWorker(){
   return html2pdf().set({
     margin:10,filename:"midia-kit-eduardo-bastier.pdf",
     image:{type:"jpeg",quality:0.95},
     html2canvas:{scale:2,useCORS:true,backgroundColor:"#FFFBF0",scrollX:0,scrollY:0,
-      onclone:function(doc){doc.querySelectorAll("img").forEach(function(i){if(window.EB_FOTO_PDF)i.src=window.EB_FOTO_PDF;});}},
+      onclone:function(doc){fixColors(doc);doc.querySelectorAll("img").forEach(function(i){if(window.EB_FOTO_PDF)i.src=window.EB_FOTO_PDF;});}},
     jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},
     pagebreak:{mode:["css","legacy"],avoid:[".sec",".box",".hero",".metric",".contact"]}
   }).from(document.getElementById("content"));
