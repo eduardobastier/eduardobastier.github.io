@@ -1,0 +1,50 @@
+# Conecta uma rede ao robô de números (uso único, ou quando um acesso parar de funcionar).
+# 1) Abra o link de autorização da rede (ver numeros-automaticos.md) e aceite.
+# 2) Você volta para o site com ?code=... no endereço: copie só o código.
+# 3) Actions > Conectar rede > Run workflow: escolha a rede e cole o código.
+# O código vale poucos minutos e só uma vez; o acesso gerado vai direto para os segredos, sem aparecer no log.
+name: Conectar rede
+
+on:
+  workflow_dispatch:
+    inputs:
+      rede:
+        description: Rede
+        type: choice
+        options: [tiktok, youtube]
+      codigo:
+        description: Código que apareceu no endereço depois de autorizar (?code=...)
+        required: true
+
+jobs:
+  conectar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trocar o código pelo acesso e salvar nos segredos
+        env:
+          REDE: ${{ inputs.rede }}
+          CODIGO: ${{ inputs.codigo }}
+          REDIRECT: https://eduardobastier.github.io/
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          CODE=$(python3 -c "import urllib.parse,os;print(urllib.parse.unquote(os.environ['CODIGO'].strip()))")
+          if [ "$REDE" = tiktok ]; then
+            R=$(curl -s https://open.tiktokapis.com/v2/oauth/token/ \
+              --data-urlencode "client_key=$TIKTOK_CLIENT_KEY" --data-urlencode "client_secret=$TIKTOK_CLIENT_SECRET" \
+              --data-urlencode "code=$CODE" -d grant_type=authorization_code --data-urlencode "redirect_uri=$REDIRECT")
+            NOME=TIKTOK_REFRESH_TOKEN
+          else
+            R=$(curl -s https://oauth2.googleapis.com/token \
+              --data-urlencode "client_id=$GOOGLE_CLIENT_ID" --data-urlencode "client_secret=$GOOGLE_CLIENT_SECRET" \
+              --data-urlencode "code=$CODE" -d grant_type=authorization_code --data-urlencode "redirect_uri=$REDIRECT")
+            NOME=YT_REFRESH_TOKEN
+          fi
+          TOKEN=$(echo "$R" | jq -r '.refresh_token // empty')
+          if [ -z "$TOKEN" ]; then echo "Falhou: $(echo "$R" | jq -c 'del(.access_token)')"; exit 1; fi
+          echo "::add-mask::$TOKEN"
+          gh secret set "$NOME" --body "$TOKEN" --repo "$GITHUB_REPOSITORY"
+          echo "$NOME salvo. Agora rode Actions > Atualizar números para testar."
