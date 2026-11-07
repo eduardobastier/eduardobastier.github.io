@@ -1,0 +1,54 @@
+# Atualiza os números do site (dados/data.json) todo dia às 00h05 de Brasília.
+# Também dá para rodar na mão: aba Actions > Atualizar números > Run workflow.
+name: Atualizar números
+
+on:
+  schedule:
+    - cron: "5 3 * * *" # 03:05 UTC = 00:05 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: numeros
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Buscar números nas APIs
+        id: coleta
+        run: node scripts/atualizar-numeros.mjs
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+
+      # O TikTok troca o refresh token a cada uso: guarda o novo para a próxima execução.
+      - name: Guardar novo acesso do TikTok
+        if: steps.coleta.outputs.tiktok_refresh != ''
+        run: gh secret set TIKTOK_REFRESH_TOKEN --body "$NOVO" --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NOVO: ${{ steps.coleta.outputs.tiktok_refresh }}
+
+      - name: Publicar
+        run: |
+          git add dados/data.json
+          if git diff --cached --quiet; then echo "Sem mudanças"; exit 0; fi
+          git -c user.name=eduardobastier -c user.email=eduardobastier93@gmail.com \
+            commit -m "Atualiza números do site ($(TZ=America/Sao_Paulo date +%d/%m/%Y))"
+          git push
